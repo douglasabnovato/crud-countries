@@ -1,12 +1,5 @@
-
-
-
-
-
-el : elemento div
-contries : linhas em uma matriz
-count : número de linhas
-FelchAll : Selecione todas as linhas
-Add : Adicionar uma nova linha
-Edit : Editar um linha
-Delet : Excluir uma linha
+Projeto prático 
+- layout responsivo de página web - w3school
+- crud de países - youtube
+- calendário - w3school
+- texto responsivo - w3school
