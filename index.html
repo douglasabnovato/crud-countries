@@ -1,125 +1,228 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Countries CRUD</title>
-        <style>
 
-            input[type='submit'], button, [aria-label]{
-                cursor: pointer;
-            }
-            
-            #spoiler{
-                display: none;
-            }
-            
-        </style>
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <title>CRUDs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /*código do crud*/
+        input[type='submit'],
+        button,
+        [aria-label] {
+            cursor: pointer;
+        }
+        
+        #spoiler {
+            display: none;
+        }
+        /*código do crud*/
+        * {
+            box-sizing: border-box
+        }
+
+        /* Set height of body and the document to 100% */
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial;
+        }
+
+        /* Style tab links */
+        .tablink {
+            background-color: #555;
+            color: white;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            font-size: 17px;
+            width: 25%;
+        }
+
+        .tablink:hover {
+            background-color: #777;
+        }
+
+        /* Style the tab content (and add height:100% for full page content) */
+        .tabcontent {
+            color: white;
+            display: none;
+            padding: 100px 20px;
+            height: 100%;
+        }
+
+        #Home {
+            background-color: red;
+        }
+
+        #News {
+            background-color: green;
+        }
+
+        #Contact {
+            background-color: blue;
+        }
+
+        #About {
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="tablink" onclick="openPage('Home', this, 'red')" id="defaultOpen">Países</button>
+    <button class="tablink" onclick="openPage('News', this, 'green')">News</button>
+    <button class="tablink" onclick="openPage('Contact', this, 'blue')">Contact</button>
+    <button class="tablink" onclick="openPage('About', this, 'orange')">About</button>
+
+    <div id="Home" class="tabcontent">        
         <div>
-            <div>
-                <form action="javascript:void(0);" method="POST" onsubmit="app.Add()"> 
-                    <input type="text" id="add-name" placeholder="Novo País">
-                    <input type="submit" value="Adicionar">
-                </form>
-            </div>
-            <div id="spoiler" role="aria-hidden">
-                <form action="javascript:void(0);" method="POST" id="saveEdit">
-                    <input type="text" id="edit-name">
-                    <input type="submit" value="Edit" /> <a onclick="CloseInput()" aria-label="Close">&#10006;</a>
-                </form>
-            </div>
-            <div>
-                <p id="counter"></p>
-                <table>
-                    <tr>
-                        <th>Nome do País</th>
-                    </tr>
-                    <tbody id="countries"></tbody>
-                </table>
-            </div>
+            <h3>Países</h3>
+            <p>CRUD de países.</p>
         </div>
-        <script>
-            var app = new function() {
+        <div>
+            <form action="javascript:void(0);" method="POST" onsubmit="app.Add()">
+                <input type="text" id="add-name" placeholder="Novo País">
+                <input type="submit" value="Adicionar">
+            </form>
+        </div>
+        <div id="spoiler" role="aria-hidden">
+            <form action="javascript:void(0);" method="POST" id="saveEdit">
+                <input type="text" id="edit-name">
+                <input type="submit" value="Edit" /> <a onclick="CloseInput()" aria-label="Close">&#10006;</a>
+            </form>
+        </div>
+        <div>
+            <p id="counter"></p>
+            <table>
+                <tr>
+                    <th>Nome do País</th>
+                </tr>
+                <tbody id="countries"></tbody>
+            </table>
+        </div>        
+    </div>
 
-                this.el = document.getElementById('countries');
+    <div id="News" class="tabcontent">
+        <h3>News</h3>
+        <p>Some news this fine day!</p>
+    </div>
 
-                this.countries = ['France', 'Germany', 'England', 
-                                'Spain', 'Belgium', 'Italy', 
-                                'Portugal', 'Irland', 'Luxembourg',
-                                'Brazil'
-                ];
-                this.Count = function(data) {
-                    var el   = document.getElementById('counter');
-                    var name = 'País';
+    <div id="Contact" class="tabcontent">
+        <h3>Contact</h3>
+        <p>Get in touch, or swing by for a cup of coffee.</p>
+    </div>
 
-                    if (data) {
-                        if (data > 1) {
-                            name = 'Países';
-                        }
-                        el.innerHTML = data + ' ' + name ;
-                        } else {
-                            el.innerHTML = 'No ' + name;
+    <div id="About" class="tabcontent">
+        <h3>About</h3>
+        <p>Who we are and what we do.</p>
+    </div>
+
+    <script>
+        function openPage(pageName, elmnt, color) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
+            document.getElementById(pageName).style.display = "block";
+            elmnt.style.backgroundColor = color;
+        }
+
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+
+        /* código do crud*/
+        var app = new function () {
+
+            this.el = document.getElementById('countries');
+
+            this.countries = ['France', 'Germany', 'England',
+                'Spain', 'Belgium', 'Italy',
+                'Portugal', 'Irland', 'Luxembourg',
+                'Brazil'
+            ];
+            this.Count = function (data) {
+                var el = document.getElementById('counter');
+                var name = 'País';
+
+                if (data) {
+                    if (data > 1) {
+                        name = 'Países';
                     }
-                };
-                this.FetchAll = function() {
-                        var data = '';
-                        if (this.countries.length > 0) {
-                            for (i = 0; i < this.countries.length; i++) {
-                                data += '<tr>';
-                                data += '<td>' + this.countries[i] + '</td>';
-                                data += '<td><button onclick="app.Edit(' + i + ')">Editar</button></td>';
-                                data += '<td><button onclick="app.Delete(' + i + ')">Deletar</button></td>';
-                                data += '</tr>';
-                            }
-                        }
-                        this.Count(this.countries.length);
-                        return this.el.innerHTML = data;
-                };
-                this.Add = function () {
-                    el = document.getElementById('add-name');
-                    // Get the value
+                    el.innerHTML = data + ' ' + name;
+                } else {
+                    el.innerHTML = 'No ' + name;
+                }
+            };
+            this.FetchAll = function () {
+                var data = '';
+                if (this.countries.length > 0) {
+                    for (i = 0; i < this.countries.length; i++) {
+                        data += '<tr>';
+                        data += '<td>' + this.countries[i] + '</td>';
+                        data += '<td><button onclick="app.Edit(' + i + ')">Editar</button></td>';
+                        data += '<td><button onclick="app.Delete(' + i + ')">Deletar</button></td>';
+                        data += '</tr>';
+                    }
+                }
+                this.Count(this.countries.length);
+                return this.el.innerHTML = data;
+            };
+            this.Add = function () {
+                el = document.getElementById('add-name');
+                // Get the value
+                var country = el.value;
+                if (country) {
+                    // Add the new value
+                    this.countries.push(country.trim());
+                    // Reset input value
+                    el.value = '';
+                    // Dislay the new list
+                    this.FetchAll();
+                }
+            };
+            this.Edit = function (item) {
+                var el = document.getElementById('edit-name');
+                // Display value in the field
+                el.value = this.countries[item];
+                // Display fields
+                document.getElementById('spoiler').style.display = 'block';
+                self = this;
+                document.getElementById('saveEdit').onsubmit = function () {
+                    // Get value
                     var country = el.value;
                     if (country) {
-                        // Add the new value
-                        this.countries.push(country.trim());
-                        // Reset input value
-                        el.value = '';
-                        // Dislay the new list
-                        this.FetchAll();
+                        // Edit value
+                        self.countries.splice(item, 1, country.trim());
+                        // Display the new list
+                        self.FetchAll();
+                        // Hide fields
+                        CloseInput();
                     }
-                };
-                this.Edit = function (item) {
-                    var el = document.getElementById('edit-name');
-                    // Display value in the field
-                    el.value = this.countries[item];
-                    // Display fields
-                    document.getElementById('spoiler').style.display = 'block';
-                    self = this;
-                    document.getElementById('saveEdit').onsubmit = function() {
-                        // Get value
-                        var country = el.value;
-                        if (country) {
-                            // Edit value
-                            self.countries.splice(item, 1, country.trim());
-                            // Display the new list
-                            self.FetchAll();
-                            // Hide fields
-                            CloseInput();
-                        }
-                    }
-                };
-                this.Delete = function (item) {
-                    // Delete the current row
-                    this.countries.splice(item, 1);
-                    // Display the new list
-                    this.FetchAll();
-                };
-            }
-            app.FetchAll();
-            function CloseInput() {
-                document.getElementById('spoiler').style.display = 'none';
-            }
-        </script>
-    </body>
+                }
+            };
+            this.Delete = function (item) {
+                // Delete the current row
+                this.countries.splice(item, 1);
+                // Display the new list
+                this.FetchAll();
+            };
+        }
+        app.FetchAll();
+        function CloseInput() {
+            document.getElementById('spoiler').style.display = 'none';
+        }
+    </script>
+
+</body>
+
 </html>
