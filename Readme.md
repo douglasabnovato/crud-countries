@@ -23,15 +23,15 @@ Usando w3school como fonte de conteúdo para criar alguns elementos que podem se
 #### Publicado
 
 - Países<br/>
-![Países](/tela-1.jpg)
+![Países](/images/tela-1.jpg)
 
 - Calendário<br/>
-![Calendário](/tela-2.jpg)
+![Calendário](/images/tela-2.jpg)
 
 - Leitura<br/>
-![Leitura](/tela-3.jpg)
+![Leitura](/images/tela-3.jpg)
 
 - Imagem<br/>
-![Imagem](/tela-4.jpg)
+![Imagem](/images/tela-4.jpg)
 
 :. [Linkedin - @douglasabnovato](https://www.linkedin.com/in/douglasabnovato/)
